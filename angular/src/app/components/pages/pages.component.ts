@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageService } from 'src/app/services/page.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-pages',
@@ -17,7 +18,8 @@ export class PagesComponent implements OnInit {
   constructor(  
     private route: ActivatedRoute,
     private router: Router,
-    private pageService: PageService
+    private pageService: PageService,
+    private title: Title
   ) { }
 
   ngOnInit() {
@@ -29,6 +31,10 @@ export class PagesComponent implements OnInit {
       this.param = params["page"];
       if (this.param === undefined) {
         this.param = "home";
+        this.title.setTitle('CMS');
+      } else{
+        this.title.setTitle(this.param.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()));
+
       }
 
       this.pageService.getPage(this.param).subscribe(
