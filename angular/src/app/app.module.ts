@@ -10,6 +10,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { PageService } from './services/page.service';
 import { PagesComponent } from './components/pages/pages.component';
 import { Title } from '@angular/platform-browser';
+import { UserService } from './services/user.service';
 
 const appRoutes: Routes = [
   {path: ':page', component: PagesComponent},
@@ -28,7 +29,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [ PageService, Title],
+  providers: [ PageService, Title, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

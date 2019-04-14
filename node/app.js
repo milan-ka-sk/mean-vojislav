@@ -48,8 +48,10 @@ app.use(function(req, res, next) {
 
 // set routes
 var pages = require('./routes/pages');
+var users = require('./routes/users');
 
 app.use('/pages', pages);
+app.use('/users', users);
 
 // start the server
 var port = 3000;
