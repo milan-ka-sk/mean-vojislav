@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PageService } from './../../services/page.service';
 
 @Component({
   selector: 'app-navbar',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  pages: any;
+
+  constructor(public pageService: PageService) { }
 
   ngOnInit() {
+    this.pageService.getPages().subscribe(
+      (pages) => {
+        // console.log("xxx " + pages);
+        // console.log(JSON.stringify(pages));
+        // console.log(typeof(pages));
+        this.pageService.pagesBS.next(pages);
+        this.pages = this.pageService.pagesBS;
+        // console.log("xxx2 " + this.pages);
+      }
+    )
   }
 
 }
