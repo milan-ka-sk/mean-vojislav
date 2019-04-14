@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
 var config = require('./config/database');
 
 // connect to db
-mongoose.connect(config.database);
+mongoose.connect(config.database, { useNewUrlParser: true });
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
@@ -25,6 +25,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // parse application/json
 app.use(bodyParser.json());
+
+// set routes
+var pages = require('./routes/pages');
+
+app.use('/pages', pages);
 
 // start the server
 var port = 3000;
