@@ -24,4 +24,9 @@ export class PageService {
   getEditPage(id){
     return this.http.get('http://localhost:3000/pages/edit-page/' + id);
   }
+
+  postEditPage(value){
+    return this.http.post('http://localhost:3000/pages/edit-page/' + value.id, value);
+  }
+
 }
