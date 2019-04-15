@@ -28,4 +28,37 @@ router.get('/:slug', function(req, res) {
     })
 });
 
+//
+// post add-page
+//
+
+router.post('/add-page', function(req, res) {
+
+    var title = req.body.title;
+    var slug = req.body.title.replace(/\s+/g, '-').toLowerCase();
+    var content = req.body.content;
+
+    Page.findOne({ slug: slug }, function(err, page) {
+        if (err) console.log(err);
+
+        if (page) {
+            res.json("pageExists");
+        } else {
+            var page = new Page({
+                title: title,
+                slug: slug,
+                content: content,
+                sidebar: "no"
+            });
+
+            page.save(function(err) {
+                if (err) {
+                    console.log(err);
+                }
+                res.json("ok");
+            });
+        }
+    })
+});
+
 module.exports = router;
