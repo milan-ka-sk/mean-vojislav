@@ -38,15 +38,22 @@ router.post('/register', function(req, res) {
 });
 
 //
-// get a page
+// post login
 //
 
-router.get('/:slug', function(req, res) {
-    var slug = req.params.slug;
+router.post('/login', function(req, res) {
 
-    Page.findOne({ slug: slug }, function(err, page) {
+    var username = req.body.username;
+    var password = req.body.password;
+
+    User.findOne({ username: username, password: password }, function(err, user) {
         if (err) console.log(err);
-        res.json(page);
+
+        if (user) {
+            res.json(username);
+        } else {
+            res.json("invalidLogin");
+        }
     })
 });
 

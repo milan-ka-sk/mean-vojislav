@@ -28,6 +28,7 @@ export class RegisterComponent implements OnInit {
             this.userExists = false;
           }.bind(this), 2000);
         } else{
+          localStorage.setItem("userRegistered", "true");
           this.router.navigateByUrl('login');
         }
       });
