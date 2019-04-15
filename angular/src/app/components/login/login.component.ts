@@ -44,5 +44,4 @@ export class LoginComponent implements OnInit {
       console.log("Form is not valid");
     }
   }
-
 }
