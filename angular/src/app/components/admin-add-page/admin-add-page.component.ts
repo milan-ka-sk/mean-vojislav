@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { PageService } from 'src/app/services/page.service';
 
+declare var CKEDITOR: any;
+// if i wanted to use jquery
+// declare var $: any;
+
 @Component({
   selector: 'app-admin-add-page',
   templateUrl: './admin-add-page.component.html',
@@ -18,6 +22,9 @@ export class AdminAddPageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    CKEDITOR.replace( 'content' );
+    // jquery test
+    // $('body').append("XXXXXX");
   }
 
   addPage({form, value, valid}){
