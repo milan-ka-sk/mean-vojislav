@@ -26,8 +26,9 @@ export class AdminAddPageComponent implements OnInit {
   ngOnInit() {
     if(localStorage.getItem("user") !== "\"admin\"") {
       this.router.navigateByUrl('');
+    } else{
+      CKEDITOR.replace( 'content' );
     }
-    CKEDITOR.replace( 'content' );
     // jquery test
     // $('body').append("XXXXXX");
   }

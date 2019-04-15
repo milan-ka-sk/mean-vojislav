@@ -20,4 +20,8 @@ export class PageService {
   postAddPage(value){
     return this.http.post('http://localhost:3000/pages/add-page', value);
   }
+
+  getEditPage(id){
+    return this.http.get('http://localhost:3000/pages/edit-page/' + id);
+  }
 }

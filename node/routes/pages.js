@@ -61,4 +61,17 @@ router.post('/add-page', function(req, res) {
     })
 });
 
+//
+// get edit page
+//
+
+router.get('/edit-page/:id', function(req, res) {
+    var id = req.params.id;
+
+    Page.findById(id, function(err, page) {
+        if (err) console.log(err);
+        res.json(page);
+    })
+});
+
 module.exports = router;
