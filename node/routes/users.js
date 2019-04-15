@@ -4,28 +4,50 @@ var router = express.Router();
 // get user model
 var User = require('../models/user');
 
-// //
-// // get all users
-// //
+//
+// post register
+//
 
-// router.get('/', function(req, res) {
-//     Page.find({}, function(err, pages) {
-//         if (err) console.log(err);
-//         res.json(pages);
-//     })
-// });
+router.post('/register', function(req, res) {
 
-// //
-// // get a page
-// //
+    var username = req.body.username;
+    var password = req.body.password;
 
-// router.get('/:slug', function(req, res) {
-//     var slug = req.params.slug;
+    User.findOne({ username: username }, function(err, user) {
+        if (err) console.log(err);
 
-//     Page.findOne({ slug: slug }, function(err, page) {
-//         if (err) console.log(err);
-//         res.json(page);
-//     })
-// });
+        if (user) {
+            res.json("userExists");
+        } else {
+            var user = new User({
+                username: username,
+                password: password
+            });
+
+            user.save(
+                function(err) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        res.json("userRegistered");
+                    }
+                }
+            )
+        }
+    })
+});
+
+//
+// get a page
+//
+
+router.get('/:slug', function(req, res) {
+    var slug = req.params.slug;
+
+    Page.findOne({ slug: slug }, function(err, page) {
+        if (err) console.log(err);
+        res.json(page);
+    })
+});
 
 module.exports = router;
