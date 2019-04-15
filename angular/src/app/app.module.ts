@@ -14,8 +14,10 @@ import { UserService } from './services/user.service';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout/logout.component';
+import { AdminPagesComponent } from './components/admin-pages/admin-pages.component';
 
 const appRoutes: Routes = [
+  {path: 'admin/pages', component: AdminPagesComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'login', component: LoginComponent},
   {path: 'logout', component: LogoutComponent},
@@ -30,7 +32,8 @@ const appRoutes: Routes = [
     PagesComponent,
     RegisterComponent,
     LoginComponent,
-    LogoutComponent
+    LogoutComponent,
+    AdminPagesComponent
   ],
   imports: [
     BrowserModule,
