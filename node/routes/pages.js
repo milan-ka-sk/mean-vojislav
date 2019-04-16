@@ -86,24 +86,46 @@ router.post('/edit-page/:id', function(req, res) {
     var slug = req.body.title.replace(/\s+/g, '-').toLowerCase();
     var content = req.body.content;
 
-    Page.findById(id, function(err, page) {
-        if (err) console.log(err);
-
-        if (page.slug === slug) {
+    Page.findOne({ slug: slug, _id: { '$ne': id } }, function(e, p) {
+        if (e) console.log(e);
+        if (p) {
             res.json("pageExists");
         } else {
-            page.title = title;
-            page.slug = slug;
-            page.content = content;
+            Page.findById(id, function(err, page) {
+                if (err) console.log(err);
 
-            page.save(function(err) {
-                if (err) {
-                    console.log(err);
-                    res.json("problem");
-                } else {
-                    res.json("ok");
-                }
+                page.title = title;
+                page.slug = slug;
+                page.content = content;
+
+                page.save(function(err) {
+                    if (err) {
+                        console.log(err);
+                        res.json("problem");
+                    } else {
+                        res.json("ok");
+                    }
+                });
+
             });
+        }
+    });
+});
+
+
+//
+// get delete page
+//
+
+router.get('/delete-page/:id', function(req, res) {
+    var id = req.params.id;
+
+    Page.findByIdAndRemove(id, function(err) {
+        if (err) {
+            console.log(err);
+            res.json("error");
+        } else {
+            res.json("ok");
         }
     })
 });
